@@ -1,0 +1,99 @@
+{% extends "base2.html" %}
+
+{% load static %}
+{% block cuerpo %}
+
+    <div class="row"> <!-- la filas-->
+    <div class="col-sm-12 col-md-4 col-lg-4 xl-4"> <!-- Columna izquierda-->
+        <h1> Empleados Coca-Cola </h1>
+        <div class="card"><!-- tarjeta-->
+          <div class="card-body">
+            <form action="registrarEmpleado/" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="form-group">
+                <input type="text" id="txtid" name="txtid" placeholder="ID del Empleado" class="form-control" minlength="1" maxlength="6" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtnombre" name="txtnombre" placeholder="Nombre Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtapellido" name="txtapellido" placeholder="Apellido Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtrfc" name="txtrfc" placeholder="RFC Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtcurp" name="txtcurp" placeholder="CURP Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="numtel" name="numtel" placeholder="Numero Telefonico Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtdire" name="txtdire" placeholder="Direccion Empleado" class="form-control" minlength="1" maxlength="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtsex" name="txtsex" placeholder="Sexo Empleado" class="form-control" minlength="1" maxlength="9" required><br>
+              </div>
+            
+              <!-- Aquí agregas el campo de carga de imagen -->
+              <div class="form-group">
+                <input type="file" id="txtfoto" name="txtfoto" placeholder="Foto Empleado" accept="image/*" class="form-control" required><br>
+              </div>
+            
+              <div class="form-group py-3">
+                <button type="submit" class="btn btn-dark">Guardar Empleado</button><br>
+              </div>
+            </form>
+            
+          </div>
+        </div><!-- tarjeta-->
+    </div><!-- Columna izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 xl-8"> <!-- Columna derecha -->
+      <h1> Listado De Empleados </h1> <br>
+      <img class="w-50" src="{% static 'img/Caravana.jpg' %}" alt="CocaCola">
+      <br>
+      <br>
+      <!-- La tabla -->
+      <table class="table table-striped table-border border-danger">
+          <thead>
+              <tr class="table-dark">
+                  <th scope="col">Id_Empleado</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">RFC</th>
+                  <th scope="col">CURP</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Direccion</th>
+                  <th scope="col">Sexo</th>
+                  <th scope="col">Foto</th>
+                  <th>Opciones</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for m in misem %}
+              <tr class="table-info">
+                  <td>{{ m.id_empleado }}</td>
+                  <td>{{ m.nombre }}</td>
+                  <td>{{ m.apellido }}</td>
+                  <td>{{ m.rfc }}</td>
+                  <td>{{ m.curp }}</td>
+                  <td>{{ m.num_tel }}</td>
+                  <td>{{ m.dire }}</td>
+                  <td>{{ m.sexo }}</td>
+                  <td>
+                      {% if m.foto %}
+                          <img src="{{ m.foto.url }}" alt="Foto del Empleado" style="max-width: 100px; max-height: 100px;">
+                      {% else %}
+                          No Disponible
+                      {% endif %}
+                  </td>
+                  <td><a href="seleccionarEmpleado/{{ m.id_empleado }}" class="btn btn-info">Editar</a> <br> <br>
+                  <a href="borrarEmpleado/{{ m.id_empleado }}" class="btn btn-danger">Borrar</a></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+    </div>
+</div>
+{% endblock %}

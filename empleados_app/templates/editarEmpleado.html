@@ -1,0 +1,61 @@
+{% extends "base2.html" %}
+
+{% block cuerpo %}
+
+<div class="row"><!--fila en editar-->
+          <div class="col-md-4 offset-md-4">
+              <h2>Editar Clientes</h2>
+               <!-- Aqui codigo tarjeta -->
+              <div class="card"><!-- tarjeta-->
+                      <div class="card-body">
+                           <form action="/editarEmpleado/" method="post" enctype="multipart/form-data"> {% csrf_token %}<!-- -->
+                               <div class="form-group">
+                                 <input type="text" id="txtid" name="txtid" value="{{misem.id_empleado}}" class="form-control" minlenght="1" maxlenght="6" readonly required><br>
+                                </div>
+                                <div class="form-group py-3">
+                                 <input type="text" id="txtnombre" name="txtnombre" value="{{misem.nombre}}" class="form-control"  minlenght="1" maxlenght="100" required><br>
+                                </div>
+                                <div class="form-group">
+                                 <input type="text" id="txtapellido" name="txtapellido" class="form-control" min="1" max="9"  value="{{misem.apellido}}" required><br>
+                                </div>
+                                <div class="form-group">
+                                 <input type="text" id="txtrfc" name="txtrfc" class="form-control" min="1" max="9"  value="{{misem.rfc}}" required><br>
+                                </div>
+                                <div class="form-group">
+                                 <input type="text" id="txtcurp" name="txtcurp" class="form-control" min="1" max="9"  value="{{misem.curp}}" required><br>
+                                </div>
+                                <div class="form-group py-3">
+                                 <input type="text" id="numtel" name="numtel" value="{{misem.num_tel}}" class="form-control"  min="1" max="9" required><br>
+                                </div>
+                                <div class="form-group py-3">
+                                 <input type="text" id="txtdire" name="txtdire" value="{{misem.dire}}" class="form-control"  min="1" max="9" required><br>
+                                </div>
+                                <div class="form-group py-3">
+                                 <input type="text" id="txtsex" name="txtsex" value="{{misem.sexo}}" class="form-control"  minlenght="1" maxlenght="6" required><br>
+                                </div>
+                                <div class="form-group py-3">
+                                    <!-- Mostrar la foto actual -->
+                                    <div>
+                                        <img src="{{ misem.foto.url }}" alt="Foto del Empleado" class="img-fluid" style="max-width: 200px;">
+                                    </div>
+                                    
+                                    <!-- Campo para cambiar la foto -->
+                                    <input type="file" id="txtfoto" name="txtfoto" placeholder="Foto Empleado" class="form-control" accept="image/*">
+                                    
+                                    <!-- Campo de texto (solo si quieres mantener la URL de la foto en un campo de texto) -->
+                                    <input type="hidden" name="old_foto" value="{{ misem.foto }}">
+                                    
+                                </div>
+                                
+                                
+                                <div class="form-group py-3">
+                                 <button type="submit" class="btn btn-dark"> Guardar Empleado </button><br>
+                                </div>
+                            </form>
+                       </div>
+                    </div><!-- tarjeta-->
+                <!-- Aqui codigo tarjeta -->
+         </div>
+</div><!--fila en editar-->
+
+{% endblock %}
