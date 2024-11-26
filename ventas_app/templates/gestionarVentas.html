@@ -1,0 +1,86 @@
+{% extends "base2.html" %}
+
+{% load static %}
+{% block cuerpo %}
+
+    <div class="row"> <!-- la filas-->
+    <div class="col-sm-12 col-md-4 col-lg-4 xl-4"> <!-- Columna izquierda-->
+        <h1> Ventas Coca-Cola </h1>
+        <div class="card"><!-- tarjeta-->
+          <div class="card-body">
+            <form action="registrarVenta/" method="post"> {% csrf_token %}<!-- -->
+              <div class="form-group">
+                <input type="text" id="txtid" name="txtid" placeholder="ID del Venta" class="form-control" minlenght="1" maxlenght="6" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtidem" name="txtidem" placeholder="ID Empleado" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtidcl" name="txtidcl" placeholder="ID Cliente" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtidprod" name="txtidprod" placeholder="ID Producto" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="date" id="txtfecha" name="txtfecha" placeholder="YYYY-MM-DD (fecha)" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtcantidad" name="txtcantidad" placeholder="Cantidad Venta" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <button type="submit" class="btn btn-dark"> Guardar Venta </button><br>
+              </div>
+            </form>
+          </div>
+        </div><!-- tarjeta-->
+    </div><!-- Columna izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 xl-8"> <!-- Columna derecha -->
+        <h1> Listado De Ventas </h1>
+        <!-- La tabla -->
+        <img class="w-50" src="{% static 'img/venta.jpg' %}" alt="CocaCola">
+        <br>
+        <br>
+        <table class="table table-striped">
+            <thead>
+              <tr class="table-dark">
+                <th scope="col">Id_Venta </th>
+                <th scope="col">Id_Empleado </th>
+                <th scope="col">Id_Cliente </th>
+                <th scope="col">Id_Producto </th>
+                <th scope="col">Fecha de Venta </th>
+                <th scope="col">Cantidad de Venta </th>
+                <th> Opciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in misv %}
+              <tr class="table-info">
+                <td>
+                  {{m.id_venta}}
+                </td>
+                <td>
+                  {{m.id_empleado}}
+                </td>
+                <td>
+                  {{m.id_cliente}}
+                </td>
+                <td>
+                    {{m.id_producto}}
+                </td>
+                <td>
+                    {{m.fe_venta | date:'d-m-y'}}
+                </td>
+                <td>
+                    {{m.cantidad}}
+                </td>
+                <td> <a href="seleccionarVenta/{{m.id_venta}}" class="btn btn-info"> Editar </a> </td> <!--Falta-->
+                <td> <a href="borrarVenta/{{m.id_venta}}" class="btn btn-danger"> Borrar </a> </td> <!--Falta-->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- La tabla -->
+    </div><!-- Columna derecha -->
+    </div>
+{% endblock %}

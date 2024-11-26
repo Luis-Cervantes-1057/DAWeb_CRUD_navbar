@@ -1,0 +1,72 @@
+{% extends "base2.html" %}
+
+{% load static %}
+{% block cuerpo %}
+
+    <div class="row"> <!-- la filas-->
+    <div class="col-sm-12 col-md-4 col-lg-4 xl-4"> <!-- Columna izquierda-->
+        <h1> Sucursales Coca-Cola </h1>
+        <div class="card"><!-- tarjeta-->
+          <div class="card-body">
+            <form action="registrarSucursal/" method="post"> {% csrf_token %}<!-- -->
+              <div class="form-group">
+                <input type="text" id="txtid" name="txtid" placeholder="ID Sucursal" class="form-control" minlenght="1" maxlenght="6" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtprov" name="txtprov" placeholder="ID Proveedor" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group">
+                <input type="text" id="txtnom" name="txtnom" placeholder="Nombre de la Sucursal" class="form-control" min="1" max="9" required><br>
+              </div>
+              <div class="form-group py-3">
+                <input type="text" id="txtdire" name="txtdire" placeholder="Direccion Sucursal" class="form-control"  minlenght="1" maxlenght="100" required><br>
+              </div>
+              <div class="form-group py-3">
+                <button type="submit" class="btn btn-dark"> Guardar Sucursal </button><br>
+              </div>
+            </form>
+          </div>
+        </div><!-- tarjeta-->
+    </div><!-- Columna izquierda-->
+
+    <div class="col-sm-12 col-md-8 col-lg-8 xl-8"> <!-- Columna derecha -->
+        <h1> Listado De Sucursales </h1>
+        <!-- La tabla -->
+        <img class="w-50" src="{% static 'img/sucursal.jpg' %}" alt="CocaCola">
+        <br>
+        <br>
+        <table class="table table-striped">
+            <thead>
+              <tr class="table-dark">
+                <th scope="col">Id_Sucursal </th>
+                <th scope="col">Id_Proveedor </th>
+                <th scope="col">Nombre Sucursal </th>
+                <th scope="col">Direccion Sucursal </th>
+                <th> Opciones </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in missuc %}
+              <tr class="table-info">
+                <td>
+                  {{m.id_sucursal}}
+                </td>
+                <td>
+                  {{m.id_provee}}
+                </td>
+                <td>
+                  {{m.nombre}}
+                </td>
+                <td>
+                    {{m.dire}}
+                </td>
+                <td> <a href="seleccionarSucursal/{{m.id_sucursal}}" class="btn btn-info"> Editar </a> </td> <!--Falta-->
+                <td> <a href="borrarSucursal/{{m.id_sucursal}}" class="btn btn-danger"> Borrar </a> </td> <!--Falta-->
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        <!-- La tabla -->
+    </div><!-- Columna derecha -->
+    </div>
+{% endblock %}
